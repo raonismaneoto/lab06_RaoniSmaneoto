@@ -11,10 +11,9 @@ public class Usuario {
 	private String loginame;
 	private ArrayList<Jogo> jogos;
 	private double money;
-	private String tipo;
 	
 	
-	public Usuario(String nome, String loginame, String tipo)throws Exception{
+	public Usuario(String nome, String loginame)throws Exception{
 		if(nome.trim().equals("")){
 			throw new ParametroVazioException("O nome não pode ser vazio");
 		}
@@ -25,14 +24,7 @@ public class Usuario {
 		}
 		this.loginame = loginame;
 		this.jogos = new ArrayList<Jogo>();
-		if(tipo.trim().equals("")){
-			throw new ParametroVazioException("O tipo não pode ser vazio");
-		}
-		if(!tipo.equals("Noob") || !tipo.equals("Veterano")){
-			throw new ParametroVazioException("O tipo não pode ser diferente de Noob ou Veterano");
-		}
-		this.tipo = tipo;
-		
+		this.money = 0;
 	}
 	
 	public void adicionaDinheiro(double quantia)throws NumeroNegativoException{
@@ -49,28 +41,19 @@ public class Usuario {
 		if(preco < 0){
 			throw new NumeroNegativoException("O preço não pode ser negativo");
 		}
-		if(this.tipo.equals("Noob")){
-			if(this.money >= preco/10){
+		if(this.money >= preco){
 				this.money -= preco/10;
 				this.jogos.add(jogo);
 			}
 		}
-		else if (this.tipo.equals("Veterano")){
-			if(this.money >= preco*0.2){
-				this.money -= preco*0.2;
-				this.jogos.add(jogo);
-			}
-		}
-	}
+		
+		
 	
 	public String getNome(){
 		return this.nome;
 	}
 	public String getLogin(){
 		return this.loginame;
-	}
-	public String getTipo(){
-		return this.tipo;
 	}
 	public Jogo procuraJogo(Jogo jogo)throws Exception{
 		if(jogo == null){
@@ -83,7 +66,5 @@ public class Usuario {
 		}
 		return null;
 	}
-	public void setTipo(String tipo){
-		this.tipo = tipo;
-	}
+	
 }
