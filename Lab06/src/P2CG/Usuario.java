@@ -6,11 +6,13 @@ import Exceptions.NumeroNegativoException;
 import Exceptions.ParametroVazioException;
 
 
-public abstract class Usuario {
-	protected String nome;
-	protected String loginame;
-	protected ArrayList<Jogo> jogos;
-	protected double money;
+public class Usuario {
+	private String nome;
+	private String loginame;
+	private ArrayList<Jogo> jogos;
+	private double money;
+	private Status classificacao;
+	private int x2p;
 	
 	
 	public Usuario(String nome, String loginame)throws Exception{
@@ -25,6 +27,9 @@ public abstract class Usuario {
 		this.loginame = loginame;
 		this.jogos = new ArrayList<Jogo>();
 		this.money = 0;
+		
+		this.classificacao = new Noob();
+		this.x2p = 0;
 	}
 	
 	public void adicionaDinheiro(double quantia)throws NumeroNegativoException{
@@ -34,12 +39,20 @@ public abstract class Usuario {
 		this.money += quantia;
 		
 	}
+	public void upStatus() throws Exception{
+		if(this.x2p >= 1000){
+			this.classificacao = new Veterano();
+		}
+	}
+	public int getX2p(){
+		return this.x2p;
+	}
 	
-	protected void compraJogo(Jogo jogo)throws Exception{
+	public void compraJogo(Jogo jogo)throws Exception{
 		if(jogo == null){
 			throw new Exception("O objeto é null");
 		}
-		double preco = jogo.getPreco() - jogo.getPreco()*getDesconto();
+		double preco = jogo.getPreco() - jogo.getPreco()*this.classificacao.getDesconto();
 		if(preco < 0){
 			throw new NumeroNegativoException("O preço não pode ser negativo");
 		}
@@ -49,17 +62,28 @@ public abstract class Usuario {
 		if(this.money >= preco){
 				this.money -= preco;
 				this.jogos.add(jogo);
-				this.incremento(jogo);
+				if(this.getClassificacao().equals("Noob")){
+					double pontos = jogo.getPreco()*10;
+					x2p += (int)pontos;
+				}
+				else if (this.getClassificacao().equals("Veterano")){
+					double pontos = jogo.getPreco()*15;
+					x2p += (int)pontos;
+				}
+				
 			}
+		else{
+			throw new Exception("O usuário não possui dinheiro suficiente.");
+		}
 		
 		}
 	
 
-	protected abstract void incremento(Jogo jogo);
-	protected abstract void incremento(int x2p);
-	protected abstract double getDesconto();
 	
-
+	
+	public String getClassificacao(){
+		return this.classificacao.dizQuemTuEs();
+	}
 	public String getNome(){
 		return this.nome;
 	}
@@ -89,8 +113,57 @@ public abstract class Usuario {
 		return null;
 	}
 	
-	public void registraJogada(String nomeDoJogo, int score, int zerou){
+	public void registraJogada(String nomeDoJogo, int score, boolean zerou) throws Exception{
 		Jogo other = procuraJogo(nomeDoJogo);
+		if(other == null){
+			throw new Exception("O usuário não possui esse jogo.");
+		}
+		x2p  += other.registraJogada(score, zerou);
+		
+		
+		
+	}
+	public double getMoney(){
+		return this.money;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((classificacao == null) ? 0 : classificacao.hashCode());
+		result = prime * result
+				+ ((loginame == null) ? 0 : loginame.hashCode());
+		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Usuario other = (Usuario) obj;
+		if (classificacao == null) {
+			if (other.classificacao != null)
+				return false;
+		} else if (!classificacao.equals(other.classificacao))
+			return false;
+		if (loginame == null) {
+			if (other.loginame != null)
+				return false;
+		} else if (!loginame.equals(other.loginame))
+			return false;
+		if (nome == null) {
+			if (other.nome != null)
+				return false;
+		} else if (!nome.equals(other.nome))
+			return false;
+		return true;
 	}
 	
 }

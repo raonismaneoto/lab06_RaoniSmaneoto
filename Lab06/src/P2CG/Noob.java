@@ -2,16 +2,11 @@ package P2CG;
 
 import Exceptions.NumeroNegativoException;
 
-public class Noob extends Usuario{
-	private int x2p;
-	private double desconto;
+public class Noob extends Status{
 	
 	
-	
-	public Noob(String nome, String loginame) throws Exception {
-		super(nome, loginame);
+	public Noob() throws Exception {
 		this.desconto = 0.1;
-		this.x2p = 0;
 		
 		
 	}
@@ -20,13 +15,10 @@ public class Noob extends Usuario{
 		 return this.desconto;
 	 }
 	 
-	 public void incremento(Jogo jogo){
-			this.x2p += jogo.getPreco()*10;
-		}
-	 
-	 public void incremento(int x2p){
-		 this.x2p += x2p;
+	 public String dizQuemTuEs(){
+		 return "Noob";
 	 }
+	 
 	 
 	 
 }
