@@ -7,6 +7,9 @@ import Exceptions.ParametroVazioException;
 
 
 public class Usuario {
+	/**
+	 * Classificação é um atributo do tipo status que tem como filhos noob e veterano, dessa forma, quando o upgrade for solicitado, basta mudar o atributo, sem precisar passar todos os dados atuais para outro objeto. 
+	 */
 	private String nome;
 	private String loginame;
 	private ArrayList<Jogo> jogos;
@@ -14,7 +17,13 @@ public class Usuario {
 	private Status classificacao;
 	private int x2p;
 	
-	
+	/**
+	 * Ao construir o usuário analalisa os possíveis erros e lança execeção de acordo com os erros.
+	 * 
+	 * @param nome
+	 * @param loginame
+	 * @throws Exception
+	 */
 	public Usuario(String nome, String loginame)throws Exception{
 		if(nome.trim().equals("")){
 			throw new ParametroVazioException("O nome não pode ser vazio");
@@ -31,7 +40,12 @@ public class Usuario {
 		this.classificacao = new Noob();
 		this.x2p = 0;
 	}
-	
+	/**
+	 * Método que é usado por loja para adicionar dinheiro para o usuário.
+	 * Única execeção possível é se a quantia for negativa.
+	 * @param quantia
+	 * @throws NumeroNegativoException
+	 */
 	public void adicionaDinheiro(double quantia)throws NumeroNegativoException{
 		if(quantia < 0){
 			throw new NumeroNegativoException("A quantia não pode ser negativa");
@@ -39,6 +53,12 @@ public class Usuario {
 		this.money += quantia;
 		
 	}
+	/**
+	 * Caso o usuário seja noob ele evolui para veterano dependendo da sua quantidade de x2p.
+	 * Método usado por loja.
+	 * @throws Exception
+	 */
+	
 	public void upStatus() throws Exception{
 		if(this.x2p < 1000){
 			throw new Exception("Pontos insuficientes");
@@ -51,7 +71,11 @@ public class Usuario {
 	public int getX2p(){
 		return this.x2p;
 	}
-	
+	/**
+	 * Nesse método a lógica de compra jogo de acordo com desconto e o incremento de x2p é implementada.
+	 * @param jogo
+	 * @throws Exception
+	 */
 	public void compraJogo(Jogo jogo)throws Exception{
 		if(jogo == null){
 			throw new Exception("O objeto é null");
@@ -66,11 +90,11 @@ public class Usuario {
 		if(this.money >= preco){
 				this.money -= preco;
 				this.jogos.add(jogo);
-				if(this.getClassificacao().equals("Noob")){
+				if(this.classificacao.toString().equals("Noob")){
 					double pontos = jogo.getPreco()*10;
 					x2p += (int)pontos;
 				}
-				else if (this.getClassificacao().equals("Veterano")){
+				else if (this.classificacao.toString().equals("Veterano")){
 					double pontos = jogo.getPreco()*15;
 					x2p += (int)pontos;
 				}
@@ -81,13 +105,6 @@ public class Usuario {
 		}
 		
 		}
-	
-
-	
-	
-	public String getClassificacao(){
-		return this.classificacao.dizQuemTuEs();
-	}
 	public String getNome(){
 		return this.nome;
 	}
@@ -105,6 +122,12 @@ public class Usuario {
 		}
 		return null;
 	}
+	/**
+	 *  Esses dois métodos de procura jogo representam uma sobrecarga na qual cada um pode ser chamado com diferentes parâmetros.
+	 * @param jogo
+	 * @return
+	 * @throws Exception
+	 */
 	public Jogo procuraJogo(String jogo)throws Exception{
 		if(jogo == null){
 			throw new Exception("O jogo não pode ser null");
@@ -116,7 +139,13 @@ public class Usuario {
 		}
 		return null;
 	}
-	
+	/**
+	 * Adiciona os pontos no atributo x2p do usuário chamando o registraJogada de jogo.
+	 * @param nomeDoJogo
+	 * @param score
+	 * @param zerou
+	 * @throws Exception
+	 */
 	public void registraJogada(String nomeDoJogo, int score, boolean zerou) throws Exception{
 		Jogo other = procuraJogo(nomeDoJogo);
 		if(other == null){
@@ -130,6 +159,10 @@ public class Usuario {
 	public double getMoney(){
 		return this.money;
 	}
+	/**
+	 * Método implementado com o intuito de saber o total de preço da lista de jogos para imprimir no toString.
+	 * @return
+	 */
 	public double getTotal(){
 		double total = 0;
 		for(Jogo jogo: jogos){

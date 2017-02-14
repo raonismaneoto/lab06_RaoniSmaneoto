@@ -5,7 +5,7 @@ public abstract class Status {
 	
 	
 	protected abstract double getDesconto();
-	protected abstract String dizQuemTuEs();
+	
 
 
 	@Override
@@ -33,6 +33,8 @@ public abstract class Status {
 			return false;
 		return true;
 	}
+	@Override
+	public abstract String toString();
 	
 	
 	

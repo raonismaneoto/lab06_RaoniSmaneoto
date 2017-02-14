@@ -32,7 +32,12 @@ public class Loja {
 		if(usuario == null){
 			throw new Exception("Esse login de usuário não existe.");
 		}
-		usuario.adicionaDinheiro(quantia);
+		try {
+			usuario.adicionaDinheiro(quantia);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		
 	}
 	public void vendeJogo(String login, String nome, double preco, Jogabilidade jogabilidade, Tipo tipo){

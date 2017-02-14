@@ -14,7 +14,16 @@ public class Jogo {
 	private HashSet<Jogabilidade> jogabilidade;
 	private Tipo tipo;
 	
-	
+	/** Existem três construtores diferentes de modo que fique viável construir o objeto passando
+	 * a visibilidade de diferentes formas.
+	 *
+	 * 
+	 * @param nome
+	 * @param preco
+	 * @param jogabilidades
+	 * @param tipo
+	 * @throws Exception
+	 */
 	
 	public Jogo(String nome, double preco, HashSet<Jogabilidade> jogabilidades, Tipo tipo)throws Exception{
 		if(nome.trim().equals("")){
@@ -62,7 +71,14 @@ public class Jogo {
 		this.tipo = tipo;
 		this.maiorScore = 0;
 	}
-	
+	/**
+	 * Retorna a quantidade de x2p que será incrementada nos pontos do usuário toda vez que ele jogar.
+	 * Atualiza o maiorScore caso o score seja maior do que o antigo maiorScore.
+	 * 
+	 * @param score
+	 * @param zerou
+	 * @return
+	 */
 	public int registraJogada(int score, boolean zerou){
 		int x2p = 0;
 		int marcador = 0;
@@ -94,8 +110,12 @@ public class Jogo {
 		
 		return x2p;
 	}
-	
-	public void addJogabilidade(Jogabilidade jogabilidade) throws Exception{
+	/**
+	 * Permite a adição de mais jogabilidades, caso o jogo tenha sido criado com menos do que ele realmente tem.
+	 * @param jogabilidade
+	 *
+	 */
+	public void addJogabilidade(Jogabilidade jogabilidade){
 		this.jogabilidade.add(jogabilidade);
 	}
 	
@@ -123,14 +143,7 @@ public class Jogo {
 	public void adicionaZerada(){
 		this.quantidadeDeZeradas ++;
 	}
-	public void setMaiorScore(int Score)throws Exception{
-		if(Score < 0){
-			throw new NumeroNegativoException("O Score não pode ser negativo");
-		}
-		if(Score > maiorScore){
-			this.maiorScore = Score;
-		}
-	}
+	
 	public void setPreco(double preco){
 		this.preco = preco;
 	}

@@ -9,10 +9,7 @@ public class Veterano extends Status{
 	public double getDesconto(){
 		return this.desconto;
 	}
-	
-	public String dizQuemTuEs(){
-		 return "Veterano";
-	 }
+
 	
 	 @Override
 	 public String toString(){

@@ -13,9 +13,6 @@ public class Noob extends Status{
 		 return this.desconto;
 	 }
 	 
-	 public String dizQuemTuEs(){
-		 return "Noob";
-	 }
 	 
 	 @Override
 	 public String toString(){
