@@ -63,10 +63,7 @@ public class Jogo {
 		this.maiorScore = 0;
 	}
 	
-	public int registraJogada(int score, boolean zerou) throws Exception{
-		if(this == null){
-			throw new Exception("Elemento nulo");
-		}
+	public int registraJogada(int score, boolean zerou){
 		int x2p = 0;
 		int marcador = 0;
 		if(zerou){
@@ -169,5 +166,8 @@ public class Jogo {
 		if (tipo != other.tipo)
 			return false;
 		return true;
+	}
+	public String toString(){
+		return "+ " + this.nome + " - " + this.tipo + "\n ==> Jogou " + this.quantidadeDeVezes + " vez(es)" + "\n ==> Zerou " + this.quantidadeDeZeradas + " vez(es)" + "\n ==> Maior score: " + this.maiorScore;
 	}
 }

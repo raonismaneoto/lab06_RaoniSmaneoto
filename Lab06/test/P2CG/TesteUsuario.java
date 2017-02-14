@@ -20,6 +20,7 @@ public class TesteUsuario {
 	public void adicionaDinheiro() throws NumeroNegativoException{
 		u1.adicionaDinheiro(200);
 		Assert.assertEquals(200, u1.getMoney(), 0.05);
+		
 	}
 	@Test
 	public void compraJogo() throws Exception{
@@ -29,6 +30,11 @@ public class TesteUsuario {
 		Assert.assertEquals(205, u1.getX2p());
 		Assert.assertEquals(1981.55, u1.getMoney(), 0.05);
 		Assert.assertEquals(j1, u1.procuraJogo(j1));
+		Jogo j2 = new Jogo("Tibia", 20, Jogabilidade.Online, Tipo.RPG);
+		u1.compraJogo(j2);
+		System.out.println(u1);
+	
+		
 		
 	}
 	

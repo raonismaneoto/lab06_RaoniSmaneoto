@@ -1,7 +1,5 @@
 package P2CG;
 
-import Exceptions.NumeroNegativoException;
-
 public class Veterano extends Status{
 	
 	public Veterano() throws Exception{
@@ -13,6 +11,11 @@ public class Veterano extends Status{
 	}
 	
 	public String dizQuemTuEs(){
+		 return "Veterano";
+	 }
+	
+	 @Override
+	 public String toString(){
 		 return "Veterano";
 	 }
 }

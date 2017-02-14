@@ -40,9 +40,13 @@ public class Usuario {
 		
 	}
 	public void upStatus() throws Exception{
-		if(this.x2p >= 1000){
-			this.classificacao = new Veterano();
+		if(this.x2p < 1000){
+			throw new Exception("Pontos insuficientes");
 		}
+		if(this.classificacao.toString().equals("Veterano")){
+			throw new Exception("O Usuário já é veterano");
+		}
+		this.classificacao = new Veterano();
 	}
 	public int getX2p(){
 		return this.x2p;
@@ -126,6 +130,13 @@ public class Usuario {
 	public double getMoney(){
 		return this.money;
 	}
+	public double getTotal(){
+		double total = 0;
+		for(Jogo jogo: jogos){
+			total += jogo.getPreco();
+		}
+		return total;
+	}
 
 	@Override
 	public int hashCode() {
@@ -164,6 +175,16 @@ public class Usuario {
 		} else if (!nome.equals(other.nome))
 			return false;
 		return true;
+	}
+	@Override
+	public String toString(){
+		String msg =  this.loginame + "\n" + this.nome + " - " + "Jogador " + this.classificacao.toString() + "\nLista de Jogos: \n";
+		for(Jogo jogo: jogos){
+			msg += jogo.toString() + "\n";
+		}
+		msg += "\nTotal de preço dos jogos: R$" + this.getTotal();
+		
+		return msg;
 	}
 	
 }
