@@ -27,6 +27,12 @@ public class Loja {
 		}
 		return null;
 	}
+	/**
+	 * Procura o usuáro através do login e delega a ação de adicionar dinheiro para o método de usuário.
+	 * @param login
+	 * @param quantia
+	 * @throws Exception
+	 */
 	public void adicionaDinheiro(String login, double quantia)throws Exception{
 		Usuario	usuario = procuraUsuario(login);
 		if(usuario == null){
@@ -40,6 +46,15 @@ public class Loja {
 		
 		
 	}
+	
+	/**
+	 * Cria um jogo e chama o método de comprar jogo de usuário com o jogo criado como parâmetro.
+	 * @param login
+	 * @param nome
+	 * @param preco
+	 * @param jogabilidade
+	 * @param tipo
+	 */
 	public void vendeJogo(String login, String nome, double preco, Jogabilidade jogabilidade, Tipo tipo){
 		try {
 			Jogo jogo = new Jogo(nome, preco, jogabilidade, tipo);
@@ -50,6 +65,12 @@ public class Loja {
 		}	
 		
 	}
+	
+	/**
+	 * Responsável por promover a classificação do usuário para veterano, caso tenha x2p >= 1000, por meio da delegação para o método em usuário.
+	 * @param login
+	 * @throws Exception
+	 */
 	public void upgrade(String login)throws Exception{
 		Usuario usuario = procuraUsuario(login);
 		if(usuario == null){
@@ -62,7 +83,9 @@ public class Loja {
 		}
 		
 	}
-	
+	/**
+	 * toString adaptado de acordo com a especificação.
+	 */
 	@Override
 	public String toString(){
 		String msg = "== Central P2-CG === \n\n";

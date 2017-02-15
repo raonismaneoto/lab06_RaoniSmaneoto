@@ -1,5 +1,12 @@
 package P2CG;
 
+/**
+ * Classe responsável por ser pai das possíveis classificações. Com essa estratégia o upgrade fica mais fácil e elegante de ser feito.
+ * @author raoni
+ *
+ */
+
+
 public abstract class Status {
 	protected double desconto;
 	

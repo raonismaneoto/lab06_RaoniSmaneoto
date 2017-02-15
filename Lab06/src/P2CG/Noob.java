@@ -3,7 +3,7 @@ package P2CG;
 public class Noob extends Status{
 	
 	
-	public Noob() throws Exception {
+	public Noob() {
 		this.desconto = 0.1;
 		
 		

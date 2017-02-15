@@ -18,7 +18,7 @@ public class Usuario {
 	private int x2p;
 	
 	/**
-	 * Ao construir o usuário analalisa os possíveis erros e lança execeção de acordo com os erros.
+	 * Ao construir o usuário analisa os possíveis erros e lança execeção de acordo com os erros.
 	 * 
 	 * @param nome
 	 * @param loginame
@@ -105,6 +105,10 @@ public class Usuario {
 		}
 		
 		}
+	
+	public String getClassificacao(){
+		return this.classificacao.toString();
+	}
 	public String getNome(){
 		return this.nome;
 	}

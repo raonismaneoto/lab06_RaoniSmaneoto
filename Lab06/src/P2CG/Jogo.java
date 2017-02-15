@@ -82,6 +82,7 @@ public class Jogo {
 	public int registraJogada(int score, boolean zerou){
 		int x2p = 0;
 		int marcador = 0;
+		this.quantidadeDeVezes ++;
 		if(zerou){
 			this.quantidadeDeZeradas ++;
 		}
