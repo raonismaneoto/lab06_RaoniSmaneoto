@@ -148,14 +148,15 @@ public class Jogo {
 	public void setPreco(double preco){
 		this.preco = preco;
 	}
+	
+	public String toString(){
+		return "+ " + this.nome + " - " + this.tipo + "\n ==> Jogou " + this.quantidadeDeVezes + " vez(es)" + "\n ==> Zerou " + this.quantidadeDeZeradas + " vez(es)" + "\n ==> Maior score: " + this.maiorScore;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result
-				+ ((jogabilidade == null) ? 0 : jogabilidade.hashCode());
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
-		result = prime * result + ((tipo == null) ? 0 : tipo.hashCode());
 		return result;
 	}
 	@Override
@@ -167,21 +168,11 @@ public class Jogo {
 		if (getClass() != obj.getClass())
 			return false;
 		Jogo other = (Jogo) obj;
-		if (jogabilidade == null) {
-			if (other.jogabilidade != null)
-				return false;
-		} else if (!jogabilidade.equals(other.jogabilidade))
-			return false;
 		if (nome == null) {
 			if (other.nome != null)
 				return false;
 		} else if (!nome.equals(other.nome))
 			return false;
-		if (tipo != other.tipo)
-			return false;
 		return true;
-	}
-	public String toString(){
-		return "+ " + this.nome + " - " + this.tipo + "\n ==> Jogou " + this.quantidadeDeVezes + " vez(es)" + "\n ==> Zerou " + this.quantidadeDeZeradas + " vez(es)" + "\n ==> Maior score: " + this.maiorScore;
 	}
 }

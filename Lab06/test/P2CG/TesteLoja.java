@@ -7,14 +7,14 @@ import org.junit.Test;
 public class TesteLoja {
 	Jogo j1, j2, j3;
 	Usuario u1, u2, u3;
-	Loja l1, l2;
+	LojaController l1, l2;
 	@Before
 	public void before() throws Exception{
 		j1 = new Jogo("Gta", 20.5, Tipo.Luta);
 		j2 = new Jogo("Tibia", 30, Tipo.RPG);
 		u1 = new Usuario("Raoni", "Smaneoto");
 		u2 = new Usuario("Stone", "stonys");
-		l1 = new Loja();
+		l1 = new LojaController();
 		
 	}
 	

@@ -71,6 +71,8 @@ public class Usuario {
 	public int getX2p(){
 		return this.x2p;
 	}
+	
+
 	/**
 	 * Nesse método a lógica de compra jogo de acordo com desconto e o incremento de x2p é implementada.
 	 * @param jogo
