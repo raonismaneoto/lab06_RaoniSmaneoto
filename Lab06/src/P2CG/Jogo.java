@@ -8,11 +8,10 @@ import Exceptions.ParametroVazioException;
 public class Jogo {
 	private String nome;
 	private double preco;
-	private int maiorScore;
+	protected int maiorScore;
 	private int quantidadeDeVezes;
 	private int quantidadeDeZeradas;
 	private HashSet<Jogabilidade> jogabilidade;
-	private Tipo tipo;
 	
 	/** Existem três construtores diferentes de modo que fique viável construir o objeto passando
 	 * a visibilidade de diferentes formas.
@@ -25,7 +24,7 @@ public class Jogo {
 	 * @throws Exception
 	 */
 	
-	public Jogo(String nome, double preco, HashSet<Jogabilidade> jogabilidades, Tipo tipo)throws Exception{
+	public Jogo(String nome, double preco, HashSet<Jogabilidade> jogabilidades)throws Exception{
 		if(nome.trim().equals("")){
 			throw new ParametroVazioException("O nome não pode ser vazio");
 		}
@@ -37,10 +36,9 @@ public class Jogo {
 		this.quantidadeDeVezes = 0;
 		this.quantidadeDeZeradas = 0;
 		this.jogabilidade = jogabilidades;
-		this.tipo = tipo;
 		this.maiorScore = 0;
 	}
-	public Jogo(String nome, double preco, Jogabilidade jogabilidade, Tipo tipo)throws Exception{
+	public Jogo(String nome, double preco, Jogabilidade jogabilidade)throws Exception{
 		if(nome.trim().equals("")){
 			throw new ParametroVazioException("O nome não pode ser vazio");
 		}
@@ -53,10 +51,9 @@ public class Jogo {
 		this.quantidadeDeZeradas = 0;
 		this.jogabilidade = new HashSet<Jogabilidade>();
 		this.jogabilidade.add(jogabilidade);
-		this.tipo = tipo;
 		this.maiorScore = 0;
 	}
-	public Jogo(String nome, double preco, Tipo tipo)throws Exception{
+	public Jogo(String nome, double preco)throws Exception{
 		if(nome.trim().equals("")){
 			throw new ParametroVazioException("O nome não pode ser vazio");
 		}
@@ -68,7 +65,6 @@ public class Jogo {
 		this.quantidadeDeVezes = 0;
 		this.quantidadeDeZeradas = 0;
 		this.jogabilidade = new HashSet<Jogabilidade>();
-		this.tipo = tipo;
 		this.maiorScore = 0;
 	}
 	/**
@@ -86,29 +82,6 @@ public class Jogo {
 		if(zerou){
 			this.quantidadeDeZeradas ++;
 		}
-		if(score > maiorScore){
-			if(tipo.equals(Tipo.Luta)){
-				if(score <= 100000){
-					maiorScore = score;
-					marcador = 1;
-				}
-			}
-			else{
-				maiorScore = score;
-			}
-			
-		}
-		if(this.tipo.equals(Tipo.RPG)){
-			x2p+=10;
-		}
-		else if(this.tipo.equals(Tipo.Luta) && marcador == 1){
-			double lutax2p = maiorScore/1000;
-			x2p = (int) lutax2p;
-		}
-		else if(this.tipo.equals(Tipo.Plataforma) && zerou == true){
-			x2p += 20;
-		}
-		
 		return x2p;
 	}
 	/**
@@ -150,7 +123,7 @@ public class Jogo {
 	}
 	
 	public String toString(){
-		return "+ " + this.nome + " - " + this.tipo + "\n ==> Jogou " + this.quantidadeDeVezes + " vez(es)" + "\n ==> Zerou " + this.quantidadeDeZeradas + " vez(es)" + "\n ==> Maior score: " + this.maiorScore;
+		return "+ " + this.nome + " - " + this.getClass().getName() + "\n ==> Jogou " + this.quantidadeDeVezes + " vez(es)" + "\n ==> Zerou " + this.quantidadeDeZeradas + " vez(es)" + "\n ==> Maior score: " + this.maiorScore;
 	}
 	@Override
 	public int hashCode() {

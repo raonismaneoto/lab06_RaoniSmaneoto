@@ -7,7 +7,8 @@ import java.util.ArrayList;
 
 public class LojaController {
 	private ArrayList<Usuario> usuarios;
-	private FactoryDeUsuario fabrica;
+	private FactoryDeUsuario fabricaU;
+	private FactoryDeJogo fabricaJ;
 	
 	
 	public LojaController(){
@@ -31,11 +32,20 @@ public class LojaController {
 	
 	public void criaUsuario(String nome, String login, String tipo){
 		try {
-			fabrica.criaUsuario(nome, login, tipo);
+			fabricaU.criaUsuario(nome, login, tipo);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
+	}
+	public Jogo criaJogo(String nome, double preco, Jogabilidade jogabilidade, String tipo){
+		try {
+			Jogo jogo = fabricaJ.criaJogo(nome, preco, jogabilidade, tipo);
+			return jogo;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	/**
@@ -66,9 +76,9 @@ public class LojaController {
 	 * @param jogabilidade
 	 * @param tipo
 	 */
-	public void vendeJogo(String login, String nome, double preco, Jogabilidade jogabilidade, Tipo tipo){
+	public void vendeJogo(String login, String nome, double preco, Jogabilidade jogabilidade, String tipo){
 		try {
-			Jogo jogo = new Jogo(nome, preco, jogabilidade, tipo);
+			Jogo jogo = criaJogo(nome, preco, jogabilidade, tipo);
 			Usuario usuario = procuraUsuario(login);
 			usuario.compraJogo(jogo);
 		} catch (Exception e) {
