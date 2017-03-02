@@ -3,6 +3,7 @@ package P2CG;
 
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 
 public class LojaController {
@@ -38,7 +39,7 @@ public class LojaController {
 		}
 		
 	}
-	public Jogo criaJogo(String nome, double preco, Jogabilidade jogabilidade, String tipo){
+	public Jogo criaJogo(String nome, double preco, HashSet<Jogabilidade> jogabilidade, String tipo){
 		try {
 			Jogo jogo = fabricaJ.criaJogo(nome, preco, jogabilidade, tipo);
 			return jogo;
@@ -76,7 +77,7 @@ public class LojaController {
 	 * @param jogabilidade
 	 * @param tipo
 	 */
-	public void vendeJogo(String login, String nome, double preco, Jogabilidade jogabilidade, String tipo){
+	public void vendeJogo(String login, String nome, double preco, HashSet<Jogabilidade> jogabilidade, String tipo){
 		try {
 			Jogo jogo = criaJogo(nome, preco, jogabilidade, tipo);
 			Usuario usuario = procuraUsuario(login);
@@ -104,6 +105,21 @@ public class LojaController {
 		}
 		
 	}
+	
+	
+	public void downgrade(String login)throws Exception{
+		Usuario usuario = procuraUsuario(login);
+		if(usuario == null){
+			throw new Exception("Esse login de usuário não existe");
+		}
+		try {
+			usuario.downStatus();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
 	/**
 	 * toString adaptado de acordo com a especificação.
 	 */

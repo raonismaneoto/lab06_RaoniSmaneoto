@@ -1,5 +1,7 @@
 package P2CG;
 
+import Exceptions.NumeroNegativoException;
+
 /**
  * Classe responsável por ser pai das possíveis classificações. Com essa estratégia o upgrade fica mais fácil e elegante de ser feito.
  * @author raoni
@@ -7,41 +9,18 @@ package P2CG;
  */
 
 
-public abstract class Status {
-	protected double desconto;
+public interface Status {
 	
 	
-	protected abstract double getDesconto();
+	
+	
+	public double getDesconto();
+	
+	public int recompensar(Jogo jogo, int score, boolean zerou);
+	public int punir(Jogo jogo, int score, boolean zerou);
 	
 
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		long temp;
-		temp = Double.doubleToLongBits(desconto);
-		result = prime * result + (int) (temp ^ (temp >>> 32));
-		return result;
-	}
-
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Status other = (Status) obj;
-		if (Double.doubleToLongBits(desconto) != Double
-				.doubleToLongBits(other.desconto))
-			return false;
-		return true;
-	}
-	@Override
-	public abstract String toString();
 	
 	
 	

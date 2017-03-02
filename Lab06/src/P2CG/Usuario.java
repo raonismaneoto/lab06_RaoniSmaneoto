@@ -82,12 +82,13 @@ public class Usuario {
 		if(jogo == null){
 			throw new Exception("O objeto é null");
 		}
+		
+		if(jogo.equals(procuraJogo(jogo))){
+			throw new Exception("Você ja possui esse jogo");
+		}
 		double preco = jogo.getPreco() - jogo.getPreco()*this.classificacao.getDesconto();
 		if(preco < 0){
 			throw new NumeroNegativoException("O preço não pode ser negativo");
-		}
-		if(jogo.equals(procuraJogo(jogo))){
-			throw new Exception("Você ja possui esse jogo");
 		}
 		if(this.money >= preco){
 				this.money -= preco;
@@ -152,19 +153,26 @@ public class Usuario {
 	 * @param zerou
 	 * @throws Exception
 	 */
-	public void registraJogada(String nomeDoJogo, int score, boolean zerou) throws Exception{
-		Jogo other = procuraJogo(nomeDoJogo);
-		if(other == null){
-			throw new Exception("O usuário não possui esse jogo.");
-		}
-		x2p  += other.registraJogada(score, zerou);
-		
-		
-		
-	}
 	public double getMoney(){
 		return this.money;
 	}
+	
+	public void recompensar(String nomeDoJogo, int score, boolean zerou) throws Exception{
+		Jogo jogo = this.procuraJogo(nomeDoJogo);
+		if(jogo == null){
+			throw new Exception("O usuário não possui esse jogo.");
+		}
+		this.x2p += this.classificacao.recompensar(jogo, score, zerou);
+	}
+	public void punir(String nomeDoJogo, int score, boolean zerou) throws Exception{
+		Jogo jogo = this.procuraJogo(nomeDoJogo);
+		if(jogo == null){
+			throw new Exception("O usuário não possui esse jogo.");
+		}
+		this.x2p += this.classificacao.punir(jogo, score, zerou);
+	}
+	
+	
 	/**
 	 * Método implementado com o intuito de saber o total de preço da lista de jogos para imprimir no toString.
 	 * @return
@@ -217,7 +225,7 @@ public class Usuario {
 	}
 	@Override
 	public String toString(){
-		String msg =  this.loginame + "\n" + this.nome + " - " + "Jogador " + this.classificacao.toString() + "\nLista de Jogos: \n";
+		String msg =  "Jogador " + this.getClassificacao() + ": " + this.loginame + "\n" + this.getNome() + " - " + this.getX2p() +" x2p" + "\nLista de Jogos: \n";
 		for(Jogo jogo: jogos){
 			msg += jogo.toString() + "\n";
 		}
@@ -225,5 +233,16 @@ public class Usuario {
 		
 		return msg;
 	}
+	public void downStatus() throws Exception{
+		if(this.x2p > 1000){
+			throw new Exception("Pontuação não corresponte a tal ação");
+		}
+		if(this.classificacao.toString().equals("Noob")){
+			throw new Exception("O Usuário já é Noob");
+		}
+		this.classificacao = new Noob();
+	}
+	
+	
 	
 }
