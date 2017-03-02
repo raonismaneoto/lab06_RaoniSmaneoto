@@ -63,7 +63,7 @@ public class Usuario {
 		if(this.x2p < 1000){
 			throw new Exception("Pontos insuficientes");
 		}
-		if(this.classificacao.toString().equals("Veterano")){
+		if(this.classificacao.toString().equals("Veterano")){ //Chamada polimórfica.
 			throw new Exception("O Usuário já é veterano");
 		}
 		this.classificacao = new Veterano();
@@ -75,6 +75,9 @@ public class Usuario {
 
 	/**
 	 * Nesse método a lógica de compra jogo de acordo com desconto e o incremento de x2p é implementada.
+	 * A lógica é toda implementada aqui, ou seja, sem delegar para noob ou veterano implementarem isso porque, ao meu ver, 
+	 * várias gambiarras deveriam ser feitas para que funcionasse dessa forma, como por exemplo criar diversos métodos auxiliares e tratar o retorno final, 
+	 * já que somento usuário guarda o dinheiro e o x2p.
 	 * @param jogo
 	 * @throws Exception
 	 */
@@ -86,18 +89,18 @@ public class Usuario {
 		if(jogo.equals(procuraJogo(jogo))){
 			throw new Exception("Você ja possui esse jogo");
 		}
-		double preco = jogo.getPreco() - jogo.getPreco()*this.classificacao.getDesconto();
+		double preco = jogo.getPreco() - jogo.getPreco()*this.classificacao.getDesconto(); //Chamada polimórfica.
 		if(preco < 0){
 			throw new NumeroNegativoException("O preço não pode ser negativo");
 		}
 		if(this.money >= preco){
 				this.money -= preco;
 				this.jogos.add(jogo);
-				if(this.classificacao.toString().equals("Noob")){
+				if(this.classificacao.toString().equals("Noob")){ //Chamada polimórfica.
 					double pontos = jogo.getPreco()*10;
 					x2p += (int)pontos;
 				}
-				else if (this.classificacao.toString().equals("Veterano")){
+				else if (this.classificacao.toString().equals("Veterano")){ //Chamda polimórfica.
 					double pontos = jogo.getPreco()*15;
 					x2p += (int)pontos;
 				}
@@ -110,7 +113,7 @@ public class Usuario {
 		}
 	
 	public String getClassificacao(){
-		return this.classificacao.toString();
+		return this.classificacao.toString(); //Chamada polimórfica.
 	}
 	public String getNome(){
 		return this.nome;
@@ -157,19 +160,35 @@ public class Usuario {
 		return this.money;
 	}
 	
+	/**
+	 * Recompensa o usuário toda vez que ele joga um jogo, de acordo com sua classificação.
+	 * @param nomeDoJogo
+	 * @param score
+	 * @param zerou
+	 * @throws Exception
+	 */
 	public void recompensar(String nomeDoJogo, int score, boolean zerou) throws Exception{
 		Jogo jogo = this.procuraJogo(nomeDoJogo);
 		if(jogo == null){
 			throw new Exception("O usuário não possui esse jogo.");
 		}
-		this.x2p += this.classificacao.recompensar(jogo, score, zerou);
+		this.x2p += this.classificacao.recompensar(jogo, score, zerou); //Chamada polimórfica.
 	}
+	
+	/**
+	 * Pune o usuário toda vez que ele joga um jogo, de acordo com sua classificação.
+	 * @param nomeDoJogo
+	 * @param score
+	 * @param zerou
+	 * @throws Exception
+	 */
+	
 	public void punir(String nomeDoJogo, int score, boolean zerou) throws Exception{
 		Jogo jogo = this.procuraJogo(nomeDoJogo);
 		if(jogo == null){
 			throw new Exception("O usuário não possui esse jogo.");
 		}
-		this.x2p += this.classificacao.punir(jogo, score, zerou);
+		this.x2p += this.classificacao.punir(jogo, score, zerou); //Chamada polimórfica.
 	}
 	
 	

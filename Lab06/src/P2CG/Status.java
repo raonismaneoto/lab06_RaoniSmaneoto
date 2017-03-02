@@ -3,7 +3,7 @@ package P2CG;
 import Exceptions.NumeroNegativoException;
 
 /**
- * Classe responsável por ser pai das possíveis classificações. Com essa estratégia o upgrade fica mais fácil e elegante de ser feito.
+ * Interface que é implementada por noob e veterano possibilitando a mudança automática de classificação.
  * @author raoni
  *
  */

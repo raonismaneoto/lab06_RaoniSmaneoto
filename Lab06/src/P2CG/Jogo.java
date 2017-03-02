@@ -70,6 +70,7 @@ public class Jogo {
 	/**
 	 * Retorna a quantidade de x2p que será incrementada nos pontos do usuário toda vez que ele jogar.
 	 * Atualiza o maiorScore caso o score seja maior do que o antigo maiorScore.
+	 * Tanto jogo como seus filhos possuem esse método.
 	 * 
 	 * @param score
 	 * @param zerou

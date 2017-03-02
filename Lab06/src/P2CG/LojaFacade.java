@@ -34,7 +34,9 @@ public class LojaFacade {
 		delegador.upgrade(login);
 	}
 	
-	
+	public void downgrade(String login)throws Exception{
+		delegador.downgrade(login);
+	}
 	
 	
 	
